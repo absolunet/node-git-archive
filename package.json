@@ -1,0 +1,32 @@
+{
+  "name": "@absolunet/git-archive",
+  "version": "0.1.0",
+  "description": "git archive --remote wrapper",
+  "definition": "",
+  "homepage": "https://github.com/absolunet/node-git-archive",
+  "author": {
+    "name": "Absolunet",
+    "url": "https://absolunet.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "url": "git://github.com/absolunet/node-git-archive.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/absolunet/node-git-archive/issues"
+  },
+  "engines": {
+    "node": ">= 10.0.0"
+  },
+  "scripts": {
+    "test": "ava test"
+  },
+  "devDependencies": {
+    "@absolunet/tester": "1.6.0"
+  },
+  "dependencies": {
+    "tmp": "^0.0.33",
+    "@sindresorhus/slugify": "^0.3.0"
+  }
+}
