@@ -5,4 +5,4 @@
 
 const tester = require('@absolunet/tester');
 
-tester.lintJs();
+tester.npmPackage.validate();

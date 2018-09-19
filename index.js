@@ -15,6 +15,8 @@ const getPath = ({ url, treeish, format, extract, path }) => {
 			resolve(path);
 		} else {
 
+			tmp.setGracefulCleanup();
+
 			const prefix = slugify(`absolunetgitarchive-${url}-${treeish}`);
 
 			if (extract) {
@@ -44,11 +46,10 @@ const getPath = ({ url, treeish, format, extract, path }) => {
 
 
 
-module.exports = class {
+class GitArchive {
 
 	// The tree or commit to produce an archive for.
-
-	static download(url, { treeish = 'master', format = 'zip', extract = true, path } = {}) {
+	download(url, { treeish = 'master', format = 'zip', extract = true, path } = {}) {
 		return new Promise((resolve) => {
 
 			getPath({ url, treeish, format, extract, path }).then((finalPath) => {
@@ -67,4 +68,7 @@ module.exports = class {
 		});
 	}
 
-};
+}
+
+
+module.exports = new GitArchive();

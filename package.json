@@ -1,6 +1,6 @@
 {
   "name": "@absolunet/git-archive",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "git archive --remote wrapper",
   "definition": "",
   "homepage": "https://github.com/absolunet/node-git-archive",
@@ -8,6 +8,10 @@
     "name": "Absolunet",
     "url": "https://absolunet.com"
   },
+  "keywords": [
+    "archive",
+    "git"
+  ],
   "license": "MIT",
   "repository": {
     "url": "git://github.com/absolunet/node-git-archive.git",
@@ -17,13 +21,14 @@
     "url": "https://github.com/absolunet/node-git-archive/issues"
   },
   "engines": {
-    "node": ">= 10.0.0"
+    "node": ">= 10.10.0"
   },
+  "main": "index.js",
   "scripts": {
-    "test": "ava test"
+    "test": "ava"
   },
   "devDependencies": {
-    "@absolunet/tester": "1.6.0"
+    "@absolunet/tester": "2.1.1"
   },
   "dependencies": {
     "tmp": "^0.0.33",
