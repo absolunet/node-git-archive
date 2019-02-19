@@ -4,9 +4,9 @@
 'use strict';
 
 const { execSync } = require('child_process');
+const slash        = require('slash');
 const tmp          = require('tmp');
 const slugify      = require('@sindresorhus/slugify');
-const slash        = require('slash');
 
 
 const getPath = ({ url, treeish, format, extract, path }) => {
