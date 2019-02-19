@@ -6,6 +6,7 @@
 const { execSync } = require('child_process');
 const tmp          = require('tmp');
 const slugify      = require('@sindresorhus/slugify');
+const slash        = require('slash');
 
 
 const getPath = ({ url, treeish, format, extract, path }) => {
@@ -52,8 +53,8 @@ class GitArchive {
 	download(url, { treeish = 'master', format = 'zip', extract = true, path } = {}) {
 		return new Promise((resolve) => {
 
-			getPath({ url, treeish, format, extract, path }).then((finalPath) => {
-
+			getPath({ url, treeish, format, extract, path }).then((_finalPath) => {
+				const finalPath = slash(_finalPath);
 				let method;
 				if (extract) {
 					method = `--format tar.gz | tar -xz --strip 0 -C ${finalPath}`;
