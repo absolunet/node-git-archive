@@ -1,6 +1,5 @@
 # @absolunet/git-archive
 
-
 [![npm](https://img.shields.io/npm/v/@absolunet/git-archive.svg)](https://www.npmjs.com/package/@absolunet/git-archive)
 [![npm dependencies](https://david-dm.org/absolunet/node-git-archive/status.svg)](https://david-dm.org/absolunet/node-git-archive)
 [![npms](https://badges.npms.io/%40absolunet%2Fgit-archive.svg)](https://npms.io/search?q=%40absolunet%2Fgit-archive)
@@ -35,35 +34,36 @@ gitArchive.download('git@github.com:absolunet/node-git-archive.git').then((dir) 
 Returns a `Promise` with the path of the downloaded archive
 
 #### url
-*Required*
-Type: `string`
-
+*Required*<br>
+Type: `String`<br>
 Repo url as specified by [git-archive#remote](https://git-scm.com/docs/git-archive#git-archive---remoteltrepogt)
 
 #### options.treeish
-Type: `string`
-Default: `master`
-
+Type: `String`<br>
+Default: `master`<br>
 The tree or commit to produce an archive for as specified by [git-archive#tree-ish](https://git-scm.com/docs/git-archive#git-archive-lttree-ishgt)
 
 #### options.format
-Type: `string`
-Default: `zip`
-
+Type: `String`<br>
+Default: `zip`<br>
 Format of the resulting archive as specified by [git-archive#format](https://git-scm.com/docs/git-archive#git-archive---formatltfmtgt)
 
 #### options.extract
-Type: `boolean`
-Default: `true`
-
+Type: `Boolean`<br>
+Default: `true`<br>
 Extract the archive
 
 #### options.path
-Type: `string`
-Default: `tmp`
-
+Type: `String`<br>
+Default: `tmp`<br>
 Path and name of the archive file or path of the extracted archive. If not specified will be put in a temporary path.
 
+
+
+
+
+
+<br><br>
 
 ## License
 
