@@ -3,11 +3,16 @@
 //--------------------------------------------------------
 'use strict';
 
+const os           = require('os');
+const fs           = require('fs');
 const { execSync } = require('child_process');
 const slash        = require('slash');
 const tmp          = require('tmp');
 const slugify      = require('@sindresorhus/slugify');
 
+const isWindowsShell = () => {
+	return os.type().toLowerCase().includes('windows') && !process.env.SHELL; // eslint-disable-line no-process-env
+};
 
 const getPath = ({ url, treeish, format, extract, path }) => {
 	return new Promise((resolve) => {
@@ -55,14 +60,19 @@ class GitArchive {
 
 			getPath({ url, treeish, format, extract, path }).then((_finalPath) => {
 				const finalPath = slash(_finalPath);
-				let method;
+				const method = `git archive --remote=${url} ${treeish}`;
+				const options = { stdio:'inherit' };
+
 				if (extract) {
-					method = `--format tar.gz | tar -xz --strip 0 -C ${finalPath}`;
+					const fileName = `${finalPath}/archive`;
+					execSync(`${method} --format tar.gz --output ${fileName}`, options);
+					const tarFileName = `${isWindowsShell() ? fileName : fileName.replace(/([A-Z]):\//u, '/$1/')}`;
+					execSync(`tar -xf ${tarFileName} -C ${finalPath}`, { stdio:'ignore' });
+					fs.unlinkSync(fileName);
 				} else {
-					method = `--format ${format} --output ${finalPath}`;
+					execSync(`${method} --format ${format} --output ${finalPath}`, options);
 				}
 
-				execSync(`git archive --remote=${url} ${treeish} ${method}`, { stdio:'inherit' });
 				resolve(finalPath);
 			});
 
