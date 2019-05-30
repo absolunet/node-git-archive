@@ -60,7 +60,7 @@ class GitArchive {
 
 			getPath({ url, treeish, format, extract, path }).then((_finalPath) => {
 				const finalPath = slash(_finalPath);
-				const method = `git archive --remote=${url} ${treeish}`;
+				const method = `ssh-add && git archive --remote=${url} ${treeish}`;
 				const options = { stdio:'inherit' };
 
 				if (extract) {
