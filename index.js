@@ -26,21 +26,21 @@ const getPath = ({ url, treeish, format, extract, path }) => {
 			const prefix = slugify(`absolunetgitarchive-${url}-${treeish}`);
 
 			if (extract) {
-				tmp.dir({ prefix:`${prefix}-`, unsafeCleanup:true }, (err, tmpPath) => {
-					if (err) {
-						throw new Error(err);
+				tmp.dir({ prefix: `${prefix}-`, unsafeCleanup: true }, (error, temporaryPath) => {
+					if (error) {
+						throw new Error(error);
 					}
 
-					resolve(tmpPath);
+					resolve(temporaryPath);
 				});
 
 			} else {
-				tmp.file({ prefix:`${prefix}-`, postfix:`.${format}`, unsafeCleanup:true }, (err, tmpFile) => {
-					if (err) {
-						throw new Error(err);
+				tmp.file({ prefix: `${prefix}-`, postfix: `.${format}`, unsafeCleanup: true }, (error, temporaryFile) => {
+					if (error) {
+						throw new Error(error);
 					}
 
-					resolve(tmpFile);
+					resolve(temporaryFile);
 				});
 			}
 		}
@@ -61,13 +61,13 @@ class GitArchive {
 			getPath({ url, treeish, format, extract, path }).then((_finalPath) => {
 				const finalPath = slash(_finalPath);
 				const method = `ssh-add && git archive --remote=${url} ${treeish}`;
-				const options = { stdio:'inherit' };
+				const options = { stdio: 'inherit' };
 
 				if (extract) {
 					const fileName = `${finalPath}/archive`;
 					execSync(`${method} --format tar.gz --output ${fileName}`, options);
-					const tarFileName = `${isWindowsShell() ? fileName : fileName.replace(/([A-Z]):\//u, '/$1/')}`;
-					execSync(`tar -xf ${tarFileName} -C ${finalPath}`, { stdio:'ignore' });
+					const tarFileName = `${isWindowsShell() ? fileName : fileName.replace(/(?<drive>[A-Z]):\//u, '/$<drive>/')}`;
+					execSync(`tar -xf ${tarFileName} -C ${finalPath}`, { stdio: 'ignore' });
 					fs.unlinkSync(fileName);
 				} else {
 					execSync(`${method} --format ${format} --output ${finalPath}`, options);
